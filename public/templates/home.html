@@ -1,0 +1,45 @@
+<div id="mid"></div>
+<div id="booking_banner" ng-controller="MainCtrl">
+    <form id="booking_form">
+        <button type="button" class="close" data-dismiss="modal" onclick="close_form()">&times;</button>
+        <button type="button" class="btn btn-default btn_in_form" id="khuhoi" ng-click="change_type(0)">Khứ hồi</button>
+        <button type="button" class="btn btn-default btn_in_form" id="motchieu" ng-click="change_type(1)">Một chiều</button>
+        <div style="margin-top: 10px; margin-left: 20px;">
+            <div class="dropdown pull-left">
+                <input type="text" class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" placeholder="Điểm khởi hành" readonly required>
+                <span class="caret"></span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-repeat="flight in listFlights" ng-click="chooseSanBayDi(flight)">{{flight.TenDiaDanh}} ({{flight.Ma}})</a></li>
+                </ul>
+            </div>
+            <img src="images/arrow2.png" id="arrow">
+            <div class="dropdown pull-left">
+                <input type="text" class="btn btn-default dropdown-toggle" type="button" id="menu2" data-toggle="dropdown" placeholder="Điểm đến" readonly required>
+                <span class="caret"></span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-repeat="flight in listDesAirports" ng-click="display_name(flight, 2)">{{flight.TenDiaDanh}} ({{flight.NoiDen}})</a></li>
+                </ul>
+            </div>
+            <input type="text" placeholder="Ngày đi" id="example1" style="height:34px; margin-left: 20px;" data-date-format='dd-mm-yyyy' required>
+            <input type="text" placeholder="Ngày về" id="example2" style="height:34px; margin-left: 20px;" data-date-format='dd-mm-yyyy' required>
+            <div style="display: block;">
+                <input type="number" name="test" placeholder="Số lượng" style="height:34px; width: 93px; display:inline-block; margin-top: 20px;" min=1 oninput="validity.valid||(value='');" required id="sohanhkhach">
+                <!-- <div class="dropdown pull-left">
+                  <input type="text" class="btn btn-default dropdown-toggle" id="menu3" data-toggle="dropdown" placeholder="Hạng vé" readonly style="display:inline; margin-top: 20px; width: 138px;" required>
+                  <span class="caret" style=" margin-top: 20px;"></span>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu3">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click = "display_type('Y')">Y (Phổ thông)</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click = "display_type('C')">C (Thương gia)</a></li>
+                  </ul>
+                </div>  -->
+            </div>
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-warning" style="float: right; margin-right: 20px;" ng-click="find_flights()"><a href="#/listflighs" id="timchuyenbay">TÌM VÉ MÁY BAY</a> </button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+// When the document is ready
+</script>

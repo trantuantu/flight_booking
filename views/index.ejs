@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flight booking</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+  <script src="javascripts/angularApp.js"></script>
+  <script src="javascripts/jquery-1.9.1.min.js"></script>
+  
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="stylesheets/datepicker.css">
+  <link rel="stylesheet" href="stylesheets/bootstrap.css">
+  <script type="text/javascript" src="javascripts/scripts.js"></script>
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link type="text/css" rel= "stylesheet" href = "stylesheets/style.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+  <script src="javascripts/bootstrap-datepicker.js"></script>
+</head>
+<body ng-app="bt1" ng-controller="AdminCtrl">
+  <div class="header">
+  <a href = "#/home" onclick="refreshPage()">
+    <img id="banner" src="images/logo_vna-mobile.png">
+    </a>
+    <button ng-hide = "isAdmin()" id="onl_booking" type="button" class="btn btn-primary booking_btn" onclick="booking_display()">ĐẶT VÉ TRỰC TUYẾN</button>
+   
+    <button style = "float:right" ng-show="isAdmin()" type="submit" type="button" class="btn btn-primary booking_btn" value="Quay lại đặt vé">Nhấn vào logo Vietnam airlines ở góc trái để quay lại trang đặt vé</button>
+    
+     <form action="#/flightschedule" ng-hide = "isAdmin()" style="float:right">
+    <input type="submit" type="button" class="btn btn-primary booking_btn" value="Đến trang Admin" />
+    </form>
+  </div>
+  <ui-view></ui-view>
+</body>
+</html>

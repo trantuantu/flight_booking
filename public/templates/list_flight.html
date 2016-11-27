@@ -1,0 +1,37 @@
+<div class="container" ng-controller="FlightCtrl">
+    <div ng-repeat="form in data">
+        <br>
+        <form>
+            <h3>Khởi hành từ <span style="color: red;">{{form[1]}}</span> đến <span style="color: red;">{{form[2]}}</span> ngày <span style="color: orange;"> {{form[3]}}</span></h3>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Mã số</th>
+                        <th>Ngày bay</th>
+                        <th>Giờ khởi hành</th>
+                        <th>Thời gian bay</th>
+                        <th>Hạng</th>
+                        <th>Mức giá</th>
+                        <th>Giá vé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="flight in form[0]" id={{flight.Ma}}>
+                        <td id="id">{{flight.Ma}}</td>
+                        <td id="date">{{flight.Ngay}}</td>
+                        <td id="giobay">{{flight.Gio}}</td>
+                        <td id="thoigianbay">{{flight.ThoiGianBay}}</td>
+                        <td id="hang">{{flight.Hang}}</td>
+                        <td id="mucgia">{{flight.MucGia}}</td>
+                        <td id="giave">{{flight.GiaBan}}</td>
+                        <td align="center">
+                            <input type="radio" name="optradio" ng-click="choose(flight, form[4])">Chọn
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <button id="btn_dat_ve" style="background:blue; color:white; float: right;" type="submit" class="btn btn-default" ng-click="booking()" disabled="true"><a href="#/infocustomer">Đặt vé</a> </button>
+</div>

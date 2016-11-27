@@ -1,0 +1,56 @@
+<ul class="nav nav-pills">
+  <li role="presentation"  id="tab1" ng-click="changeState('tab1')"><a  style ="color: black" href="#/flightschedule">Lịch bay</a></li>
+  <li role="presentation"  class="active" class="" id="tab2" ><a href="#/flight" ng-click="changeState('tab2')">Chuyến bay</a></li>
+  <li role="presentation" class="" id="tab3"><a  style ="color: black" href="#/ticketmanage"  ng-click="changeState('tab3')">Quản lý đặt chỗ</a></li>
+</ul>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Mã</th>
+        <th>Sân bay đi</th>
+        <th>Sân bay đến</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="flight in flightsInfo">
+        <td class="id">{{flight.Ma}}</td>
+        <td class="start">{{flight.NoiDi}}</td>
+        <td class="end">{{flight.NoiDen}}</td>
+        <td align="center"> <button style="background:blue; color:white" type="button" class="btn btn-default" ng-click="fillUpdate($index)" data-toggle="modal" data-target="#myModal">Chỉnh sửa</button>
+         <button style="background:red; color:white" type="button" class="btn btn-default" ng-click="deleteFlight(flight.Ma)">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button style="background:green; color:white" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="fillInsert()">Thêm chuyến bay</button>
+       <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{title}}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label >Mã</label>
+                  <input id = "id" class="form-control" type="text">
+                  </div>
+                  <div class="form-group">
+                  <label >Sân bay đi</label>
+                  <input id = "start" class="form-control" type="text">
+                  </div>
+                  <div class="form-group">
+                  <label >Sân bay đến</label>
+                  <input id = "end" class="form-control" type="text">
+                  </div>
+              </div>
+              <div class="modal-footer">
+               <button ng-show = "isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateFlight(sid)">Lưu</button>
+               <button ng-hide = "isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" data-dismiss="modal" ng-click="insertFlight()">Thêm mới</button>
+                <button type="button" class="btn btn-default" ng-click="dismissModal('myModal')">Hủy</button>
+              </div>
+            </div>
+          </div>
+        </div>

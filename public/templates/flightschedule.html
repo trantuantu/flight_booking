@@ -1,0 +1,148 @@
+<ul class="nav nav-pills">
+    <li role="presentation" class="active" id="tab1" ng-click="changeState('tab1')"><a href="#/flightschedule">Lịch bay</a></li>
+    <li role="presentation" class="" id="tab2"><a href="#/flight" style="color: black" ng-click="changeState('tab2')">Chuyến bay</a></li>
+    <li role="presentation" class="" id="tab3"><a href="#/ticketmanage" style="color: black" ng-click="changeState('tab3')">Quản lý đặt chỗ</a></li>
+</ul>
+<div ng-controller="FlightScheduleCtrl">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mã chuyến bay</th>
+                <th>Ngày</th>
+                <th>Giờ</th>
+                <th>Thời gian bay</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="flight in listFlights" id={ {flight.id}}>
+                <td class="id">{{flight.Ma}}</td>
+                <td class="date">{{flight.Ngay}}</td>
+                <td class="time">{{flight.Gio}}</td>
+                <td class="flightTime">{{flight.ThoiGianBay}}</td>
+                <td align="center">
+                    <button style="background:blue; color:white" type="button" class="btn btn-default" ng-click="fillUpdate($index)" data-toggle="modal" data-target="#myModal">Chỉnh sửa</button>
+                    <button style="background:green; color:white" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1" ng-click='loadTicketTypeInfo(flight.Ma, flight.Ngay)'>Thông tin vé</button>
+                    <button style="background:red; color:white" type="button" class="btn btn-default" ng-click="deleteFlight(flight.Ma, flight.Ngay)">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button style="background:green; color:white" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="fillInsert()">Thêm chuyến bay</button>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="dropdown">
+                            <button style="border: 1px solid black;" class="btn btn-secondary dropdown-toggle form-control" type="button" id="flightCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Chọn mã chuyến bay</span>
+                            </button>
+                            <ul class="form-control dropdown-menu" role="menu" aria-labelledby="menu2">
+                                <li ng-repeat="flightInfo in flightsInfo" ng-click="chooseFlight(flightInfo.Ma)" style="background: #dcdcdc" role="presentation"><a role="menuitem" tabindex="1">{{flightInfo.Ma}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày</label>
+                        <input id="date" class="form-control" type="text" required="true">
+                    </div>
+                    <div class="form-group">
+                        <label>Giờ</label>
+                        <input id="time" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian bay</label>
+                        <input id="flightTime" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-show="isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateFlight(sid, sdate)">Lưu</button>
+                    <button ng-hide="isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" data-dismiss="modal" ng-click="insertFlight()">Thêm mới</button>
+                    <button type="button" class="btn btn-default" ng-click="dismissModal('myModal')">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="myModal1" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông tin vé</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Loại vé</th>
+                                    <th>Mức giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá bán</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ticket in Tickets">
+                                    <td class="id">{{ticket.LoaiVe}}</td>
+                                    <td class="id">{{ticket.MucGia}}</td>
+                                    <td class="id">{{ticket.SoLuong}}</td>
+                                    <td class="id">{{ticket.GiaBan}}</td>
+                                    <td align="center">
+                                        <button style="background:blue; color:white" type="button" class="btn btn-default" ng-click="fillUpdateTicket($index)" data-toggle="modal" data-target="#myModal2">Chỉnh sửa</button>
+                                        <button style="background:red; color:white" type="button" class="btn btn-default" ng-click="deleteTicket(ticket.MaLoaiVe, ticket.LoaiVe, ticket.MucGia, ticket.MaCB, ticket.Ngay)">Xóa</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button style="background:green; color:white" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" ng-click="fillInsertTicket()">Thêm mới</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal2" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="dismissModal('myModal2')">&times;</button>
+                        <h4 class="modal-title">{{title1}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" ng-hide="isUpdate()">
+                            <label>Loại vé</label>
+                            <input class="form-control" id="type" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Mức giá</label>
+                            <input class="form-control" id="priceLevel" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            <input class="form-control" id="number" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Giá bán</label>
+                            <input class="form-control" id="price" type="text">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-show="isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" ng-click="updateTicket(sid, ticketType, pLevel, f, d)">Lưu</button>
+                        <button ng-hide="isUpdate()" style="background:blue; color:white" type="button" class="btn btn-default" ng-click="insertTicket(f, d)">Thêm mới</button>
+                        <button type="button" class="btn btn-default" ng-click="dismissModal('myModal2')">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
